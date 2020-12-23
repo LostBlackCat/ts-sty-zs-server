@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主界面</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/menu.css">
+
+</head>
+<body>
+    <div class="popLayer" id="popLayer"></div>
+    <div class="bomb-box" id="bomb_box">
+        <div class="box-block" style="height: 70px;background: rgba(12,26,63,0.3);
+        border: none;width: auto;display: flex;">
+            <div class="sim-button button28" id="OK" onclick="equipment()" style="width: 150px;font-size:24px;
+            color: #3fb8af;"><span>确认</span></div>
+            <div class="sim-button button29" id="Cancel" onclick="closewindow()" style="width: 150px;font-size:24px; 
+            color: #d60909;"><span>取消</span></div>
+        </div>
+        
+    </div>
+<div class="content-body">
+    <div class="header">
+        <div class="header-left">
+            <span style="float:right">主页面</span>
+        </div>
+        <div class="header-time">
+            <span id="time"></span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content-con">
+            <div class="left-body">
+                <div class="left-top public-bg" style="height: 7%;">
+                    <div class="public-title" style="font-size:20px;height: auto;border-bottom: 2px solid #035fad;
+                    border-top: 2px solid #035fad;width: 90%;padding-top: 1%;padding-bottom: 1%;">大气参数显示区
+                        <div style="float: right;"><button class="hidden button2" id='button_show' title="显示属性栏"
+                            onclick="hidden_menu()"></button></div>
+                    </div>
+                    <div class="top-body">
+                    </div>
+                </div>
+                <div class="left-con public-bg" id='menu' style="height: 72%;display: none;">
+                    <div class="menu-left" id="menuLeft">
+                        <ul class="menu-left-ul">
+                            <li class="menu-left-li">温度</li>
+                            <li class="menu-left-li">相对湿度</li>
+                            <li class="menu-left-li">风速</li>
+                            <li class="menu-left-li">大气相干长度</li>
+                            <li class="menu-left-li">整层大气透过率</li>
+                            <li class="menu-left-li">条目6</li>
+                            <li class="menu-left-li">条目7</li>
+                            <li class="menu-left-li">条目8</li>
+                            <li class="menu-left-li">条目9</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="center-body">
+                <div class="cen-header">
+                    <div class="sim-button button8" id="tasks" onclick="taskselect()"><span>任务选择</span></div>
+                    <div class="sim-button button8" id="equip" onclick="equipparam()"><span>装备参数</span></div>     
+                    <div class="sim-button button8" id="atmos" onclick="atmosparam()"><span>大气参数</span></div>
+                    <div class="sim-button button8" id="inarea" onclick="inputarea()"><span>输入区间</span></div>
+                    <div class="sim-button button8" id="refile" onclick="fileselect()"><span>选择文件</span></div>
+                    <input type="file" class="sim-button" style="display: none;" id="taskfile" onchange="showfile()"></input>
+                </div>
+                <div class="cen-content" id="cen-content"></div>
+                <div class="cen-bottom">
+                    <textarea class='textarea' readonly='readonly' id='task_content' value="">
+                        欢迎进入主页面！
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="right-body" style="width: 3%;">
+                <div class="right-top public-bg" style="visibility: hidden;">
+                    
+                </div>
+                <div class="right-con public-bg" style="background: -webkit-linear-gradient(left,  #8fdcfa, rgb(205, 227, 247));width: 100%;height: 25%;margin-top: 2%;">
+                    <!-- <div class="public-title">图例切换</div> -->
+                    <a class="right_arrow" title="跳转到“地理差异视图”" href="index2" style="text-decoration: none"></a>
+                </div>
+                <div class="right-bottom public-bg" style="visibility: hidden;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="js/charts/echarts.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/charts/table_chart.js"></script>
+<script type="text/javascript" src="js/function/operation.js"></script>
+<script>
+    //顶部时间
+    function getTime(){
+        var myDate = new Date();
+        var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+        var myMonth = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
+        var myToday = myDate.getDate(); //获取当前日(1-31)
+        var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+        var myHour = myDate.getHours(); //获取当前小时数(0-23)
+        var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+        var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+        var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+        var nowTime;
+
+        nowTime = myYear+'年'+fillZero(myMonth)+'月'+fillZero(myToday)+'日'+'&nbsp;&nbsp;'+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond)+'&nbsp;&nbsp;'+week[myDay]+'&nbsp;&nbsp;';
+        //console.log(nowTime);
+        $('#time').html(nowTime);
+        nowTime = myYear+'年'+fillZero(myMonth)+'月'+fillZero(myToday)+'日'+'  '+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond);
+        return nowTime
+    };
+    function fillZero(str){
+        var realNum;
+        if(str<10){
+            realNum	= '0'+str;
+        }else{
+            realNum	= str;
+        }
+        return realNum;
+    }
+    setInterval(getTime,1000);
+</script>

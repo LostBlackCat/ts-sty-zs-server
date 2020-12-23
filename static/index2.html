@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地理差异视图</title>
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+
+<div class="content-body">
+    <div class="header">
+        <div class="header-left">
+            <span style="float:right">地理差异视图</span>
+        </div>
+        <div class="header-time">
+            <span id="time"></span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="content-con">
+            <div class="left-body" style="width: 3%;">
+                <div class="left-top public-bg" style="visibility: hidden;">
+    
+                </div>
+                <div class="left-con public-bg" style="background: -webkit-linear-gradient(left, rgb(205, 227, 247), #8fdcfa);">
+                    <a class="left_arrow" title="跳转到“主页面”" href="index1" style="text-decoration: none"></a>
+                </div>
+                <div class="left-bottom public-bg" style="visibility: hidden;">
+                </div>
+            </div>
+            <div class="center-body">
+                <div class="map" id="map"></div>
+            </div>
+
+            <div class="right-body">
+                <div class="right-top public-bg">
+                    <div class="public-title">属性选择</div>
+                    <div class="grid-block">
+                    <label>气象要素选择：</label>
+                    <select class="attribution-select" id='attr_select'>
+                        <option value="温度">温度</option>
+                        <option value="气压">气压</option>
+                        <option value="湿度">湿度</option>
+                        <option value="风速">风速</option>
+                    </select>
+                    </div>
+                    <div class="grid-block" style="margin-bottom: 0%;">
+                    <label>城市选择:</label>
+                    <select class="attribution-select" id='city_select'>
+                        <option value="南京">南京</option>
+                    </select>
+                    </div>
+                    <div class="title-nav">
+                    </div>
+                </div>
+                <div class="right-con public-bg">
+                    <div class="public-title">图例切换</div>
+                    <div class="grid-block">
+                        <button onclick="map()">地图</button>
+                        <button onclick="line()">廓线图</button>
+                        <button onclick="heat()">热力图</button>
+                    </div>
+                    
+                </div>
+                <div class="right-bottom public-bg">
+                    <div class="public-title">文件显示</div>
+                    <div class="grid-block">
+                        <label>文件路径</label>
+                        <input type="file" id='filepath' readonly='readonly'></input>
+                        <button>获取文件信息</button>
+                        <select id='fileinfo'>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="js/charts/echarts.js"></script>
+<script type="text/javascript" src="js/charts/echarts-gl.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/charts/china.js"></script>
+<script type="text/javascript" src="js/charts/index.js"></script>
+<script type="text/javascript" src="js/charts/line_chart.js"></script>
+<script type="text/javascript" src="js/charts/heatmap_chart.js"></script>
+
+<script>
+    //顶部时间
+    function getTime(){
+        var myDate = new Date();
+        var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+        var myMonth = myDate.getMonth()+1; //获取当前月份(0-11,0代表1月)
+        var myToday = myDate.getDate(); //获取当前日(1-31)
+        var myDay = myDate.getDay(); //获取当前星期X(0-6,0代表星期天)
+        var myHour = myDate.getHours(); //获取当前小时数(0-23)
+        var myMinute = myDate.getMinutes(); //获取当前分钟数(0-59)
+        var mySecond = myDate.getSeconds(); //获取当前秒数(0-59)
+        var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+        var nowTime;
+
+        nowTime = myYear+'年'+fillZero(myMonth)+'月'+fillZero(myToday)+'日'+'&nbsp;&nbsp;'+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond)+'&nbsp;&nbsp;'+week[myDay]+'&nbsp;&nbsp;';
+        //console.log(nowTime);
+        $('#time').html(nowTime);
+    };
+    function fillZero(str){
+        var realNum;
+        if(str<10){
+            realNum	= '0'+str;
+        }else{
+            realNum	= str;
+        }
+        return realNum;
+    }
+    setInterval(getTime,1000);
+</script>

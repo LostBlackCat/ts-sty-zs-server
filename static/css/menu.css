@@ -1,0 +1,37 @@
+.menu{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1rem;
+    bottom: 1rem;
+    display: flex;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+    box-sizing: border-box;
+}
+.menu-left{
+    flex: 0 0 1.2rem;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-right: 1px solid green;
+    box-sizing: border-box;
+}
+.menu-left .menu-left-li{
+    line-height: 0.9rem;
+    font-size: 0.3rem;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: #eee;
+    height: 20%;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #bad0e2;
+    margin-bottom: 5%;
+}
+}
+.menu-left .menu-left-li.on{
+    background: orange;
+    color: #fff;
+}
